@@ -90,7 +90,7 @@ export class CalendarComponent {
         beforeStart: true,
         afterEnd: true
       },
-      draggable: true
+      draggable: false
     },
     {
       start: startOfDay(new Date()),
@@ -115,13 +115,18 @@ export class CalendarComponent {
         beforeStart: true,
         afterEnd: true
       },
-      draggable: true
+      draggable: false
     }
   ];
 
   activeDayIsOpen: boolean = true;
 
   constructor(private modal: NgbModal) {}
+
+  changeDay(date: Date) {
+    this.viewDate = date;
+    this.view = CalendarView.Week;
+  }  
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -168,7 +173,7 @@ export class CalendarComponent {
         start: startOfDay(new Date()),
         end: endOfDay(new Date()),
         color: colors.red,
-        draggable: true,
+        draggable: false,
         resizable: {
           beforeStart: true,
           afterEnd: true
