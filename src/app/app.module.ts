@@ -9,6 +9,7 @@ import { CalendarComponent } from './calendar/calendar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     CommonModule,
     FormsModule,
     NgbModalModule,
+    BrowserAnimationsModule,
     FlatpickrModule.forRoot(),    
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
