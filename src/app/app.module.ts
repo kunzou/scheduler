@@ -8,8 +8,10 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { HttpClientModule }    from '@angular/common/http';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 import { AdminComponent } from './admin/admin.component';
 
 @NgModule({
@@ -23,8 +25,9 @@ import { AdminComponent } from './admin/admin.component';
     AppRoutingModule,
     CommonModule,
     FormsModule,
-    NgbModalModule,
     BrowserAnimationsModule,
+    HttpClientModule,
+    NgbModule,
     FlatpickrModule.forRoot(),    
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],

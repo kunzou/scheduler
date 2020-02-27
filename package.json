@@ -28,7 +28,6 @@
     "date-fns": "^2.10.0",
     "flatpickr": "^4.6.3",
     "jquery": "^3.4.1",
-    "ngx-bootstrap": "^5.3.2",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
     "save": "^2.4.0",
