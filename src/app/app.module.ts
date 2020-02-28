@@ -13,12 +13,17 @@ import { HttpClientModule }    from '@angular/common/http';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AdminComponent } from './admin/admin.component';
+import {AuthService} from 'src/app/service/auth.service';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CalendarComponent,
-    AdminComponent
+    AdminComponent,
+    WelcomeComponent,
+    EditScheduleComponent
   ],
   imports: [
     BrowserModule,
@@ -31,7 +36,7 @@ import { AdminComponent } from './admin/admin.component';
     FlatpickrModule.forRoot(),    
     CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory })
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

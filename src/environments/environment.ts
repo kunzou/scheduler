@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:8080',
+  authClientId: 'pCb7m5IPa62ZpWC3gMkuDu54drA98BZs',
+  authRedirectUri: 'http://localhost:4200'  
 };
 
 /*

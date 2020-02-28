@@ -4,11 +4,15 @@ import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { CalendarComponent } from './calendar/calendar.component';
 import { AdminComponent } from './admin/admin.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: '/calendar', pathMatch: 'full' },
+  { path: '', redirectTo: '/welcome', pathMatch: 'full' },
   { path: 'calendar', component: CalendarComponent },  
   { path: 'admin', component: AdminComponent },  
+  { path: 'welcome', component: WelcomeComponent },  
+  { path: 'edit/:id', component: EditScheduleComponent },  
 ];
 
 @NgModule({

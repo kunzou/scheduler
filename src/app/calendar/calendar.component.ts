@@ -27,8 +27,8 @@ import {
   CalendarView
 } from 'angular-calendar';
 
-import { EventService } from '../event.service';
-import { ScheduleEvent } from '../domain/scheduleEvent';
+import { EventService } from 'src/app/service/event.service';
+import { ScheduleEvent } from 'src/app/domain/scheduleEvent';
 
 const colors: any = {
   red: {
