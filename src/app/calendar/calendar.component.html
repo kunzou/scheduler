@@ -62,10 +62,10 @@
       </div>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-secondary" (click)="makeReservation(modalData?.event)">
+      <button *ngIf="showReserveButton" type="button" class="btn btn-outline-secondary" (click)="makeReservation(modalData?.event)">
         Reserve
       </button>      
-      <button type="button" class="btn btn-outline-secondary" (click)="close()">
+      <button #closeModal type="button" data-dismiss="modal" class="btn btn-outline-secondary" (click)="close()">
         OK
       </button>
     </div>

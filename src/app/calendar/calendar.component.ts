@@ -4,7 +4,8 @@ import {
   ViewChild,
   TemplateRef,
   OnInit,
-  Input
+  Input,
+  ElementRef
 } from '@angular/core';
 import {
   startOfDay,
@@ -25,6 +26,7 @@ import {
   CalendarEventTimesChangedEvent,
   CalendarView
 } from 'angular-calendar';
+
 import { EventService } from '../event.service';
 import { ScheduleEvent } from '../domain/scheduleEvent';
 
@@ -55,11 +57,12 @@ export class CalendarComponent implements OnInit {
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
-
   viewDate: Date = new Date();
   private _success = new Subject<string>();
+  private _showButton = new Subject<boolean>();
   reservationResponse: string;
   responseType: any;
+  showReserveButton: boolean;
 
   modalData: {
     action: string;
@@ -82,9 +85,10 @@ export class CalendarComponent implements OnInit {
     this.getDummy();
 
     this._success.subscribe((message) => this.reservationResponse = message);
-    this._success.pipe(
-      debounceTime(5000)
-    ).subscribe(() => this.reservationResponse = null);       
+    this._showButton.subscribe((showButton) => this.showReserveButton = showButton);
+    // this._success.pipe(
+    //   debounceTime(5000)
+    // ).subscribe(() => this.reservationResponse = null);       
   }
 
   getDummy(): void {
@@ -111,25 +115,10 @@ export class CalendarComponent implements OnInit {
   }  
 
   handleEvent(action: string, event: ScheduleEvent): void {
-    this.modalData = { event, action };
+    this.reservationResponse = null;
+    this.showReserveButton = event.unitTaken < event.totalUnits;
+    this.modalData = { event, action };event.start.getTime
     this.modal.open(this.modalContent, { size: 'lg' });
-  }
-
-  addEvent(): void {
-    // this.events = [
-    //   ...this.events,
-    //   {
-    //     title: 'New event',
-    //     start: startOfDay(new Date()),
-    //     end: endOfDay(new Date()),
-    //     color: colors.red,
-    //     draggable: false,
-    //     resizable: {
-    //       beforeStart: true,
-    //       afterEnd: true
-    //     }
-    //   }
-    // ];
   }
 
   setView(view: CalendarView) {
@@ -141,6 +130,7 @@ export class CalendarComponent implements OnInit {
       (response) => {
         this.responseType = "success";
         this.reservationResponse = "DONE";
+        this.showReserveButton = false;
         this.getDummy();
         this.showMessage();
       },
@@ -155,109 +145,6 @@ export class CalendarComponent implements OnInit {
 
   showMessage() {
     this._success.next(this.reservationResponse);
+    this._showButton.next(this.showReserveButton);
   }   
-
-  // closeOpenMonthViewDay() {
-  //   this.activeDayIsOpen = false;
-  // }
 }
-
-  // = [
-  //   {
-  //     start: subDays(startOfDay(new Date()), 1),
-  //     end: addDays(new Date(), 1),
-  //     title: 'A 3 day event',
-  //     color: colors.red,
-  //     actions: this.actions,
-  //     allDay: true,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: false
-  //   },
-  //   {
-  //     start: startOfDay(new Date()),
-  //     title: 'An event with no end date',
-  //     color: colors.yellow,
-  //     actions: this.actions
-  //   },
-  //   {
-  //     start: subDays(endOfMonth(new Date()), 3),
-  //     end: addDays(endOfMonth(new Date()), 3),
-  //     title: 'A long event that spans 2 months',
-  //     color: colors.blue,
-  //     allDay: true
-  //   },
-  //   {
-  //     start: addHours(startOfDay(new Date()), 2),
-  //     end: addHours(new Date(), 2),
-  //     title: 'A draggable and resizable event',
-  //     color: colors.yellow,
-  //     actions: this.actions,
-  //     resizable: {
-  //       beforeStart: true,
-  //       afterEnd: true
-  //     },
-  //     draggable: false
-  //   }
-  // ];
-
-  // activeDayIsOpen: boolean = true;
-
-
-  // actions: EventAction[] = [
-  //   {
-  //     label: '<i class="fa fa-fw fa-pencil"></i>',
-  //     a11yLabel: 'Edit',
-  //     onClick: ({ event }: { event: Event }): void => {
-  //       this.handleEvent('Edited', event);
-  //     }
-  //   },
-  //   {
-  //     label: '<i class="fa fa-fw fa-times"></i>',
-  //     a11yLabel: 'Delete',
-  //     onClick: ({ event }: { event: Event }): void => {
-  //       this.events = this.events.filter(iEvent => iEvent !== event);
-  //       this.handleEvent('Deleted', event);
-  //     }
-  //   }
-  // ];
-
-
-  // dayClicked({ date, events }: { date: Date; events: Event[] }): void {
-  //   if (isSameMonth(date, this.viewDate)) {
-  //     if (
-  //       (isSameDay(this.viewDate, date) && this.activeDayIsOpen === true) ||
-  //       events.length === 0
-  //     ) {
-  //       this.activeDayIsOpen = false;
-  //     } else {
-  //       this.activeDayIsOpen = true;
-  //     }
-  //     this.viewDate = date;
-  //   }
-  // }
-
-  // eventTimesChanged({
-  //   event,
-  //   newStart,
-  //   newEnd
-  // }: EventTimesChangedEvent): void {
-  //   this.events = this.events.map(iEvent => {
-  //     if (iEvent === event) {
-  //       return {
-  //         ...event,
-  //         start: newStart,
-  //         end: newEnd
-  //       };
-  //     }
-  //     return iEvent;
-  //   });
-  //   this.handleEvent('Dropped or resized', event);
-  // }
-
-
-  // deleteEvent(eventToDelete: Event) {
-  //   this.events = this.events.filter(event => event !== eventToDelete);
-  // }  

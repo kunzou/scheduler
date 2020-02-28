@@ -22,7 +22,7 @@ export class EventService {
     return this.http.get<ScheduleEvent[]>(this.baseUrl);
   }
 
-  addReservation(calendarEvent: ScheduleEvent): Observable<any> {
+  addReservation(calendarEvent: ScheduleEvent): Observable<any> {calendarEvent.start.toISOString
     return this.http.post<ScheduleEvent>(this.baseUrl, calendarEvent, {observe: 'response', });
   }
 }
