@@ -16,8 +16,6 @@ export class WelcomeComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // this.auth.getAccessToken();
-
   }
 
 

@@ -3,8 +3,8 @@ export class Schedule {
     userId: string
     name: string
     eventInterval: Date
-    openTime: Date
-    closeTime: Date
+    openHour: Date
+    closeHour: Date
     maxAllowedDaysFromNow: number
     availability: number    
 }

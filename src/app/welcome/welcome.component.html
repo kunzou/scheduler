@@ -1,26 +1,30 @@
 <div class="container pt-3">
-    
+
     <!-- <strong>{{auth.accessToken}}</strong> -->
     <!-- <strong>{{auth.userId}}</strong> -->
 
-    <pre *ngIf="auth.isLoggedIn">
-        <code>{{ auth.userProfile | json }}</code>
-    </pre>
+    <div *ngIf="auth.authenticated">
+        <p>{{ auth.accessToken }}</p>
+        <p>{{ auth.userid }}</p>
+        <p>{{ auth.userProfile | json }}</p>
+    </div>
 
     <!-- <div *ngIf="auth.userId">
         {{auth.userId}}
     </div> -->
 
-    <div *ngIf="!auth.isLoggedIn">
-    <!-- <div> -->
+    <div *ngIf="!auth.authenticated">
+        <!-- <div> -->
         <p>Please login first to view or create new schedules</p>
         <button type="button" class="btn btn-primary btn-lg" (click)="auth.login()">Login in</button>
     </div>
 
-    <div *ngIf="auth.isLoggedIn">
-        <!-- <div> -->
-            <button type="button" class="btn btn-primary btn-lg" (click)="auth.logout()">Logout</button>
-        </div>    
+    <div *ngIf="auth.authenticated">
+        <button type="button" class="btn btn-primary btn-lg" (click)="auth.logout()">Logout</button>
+    </div>
+
+    <div *ngIf="auth.authenticated">
+        <a [routerLink]="['/profile']" routerLinkActive="router-link-active" >Go to profile</a>
+    </div>    
 
 </div>
-
