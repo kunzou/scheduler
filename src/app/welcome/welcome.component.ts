@@ -10,28 +10,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./welcome.component.css']
 })
 export class WelcomeComponent implements OnInit {
-  schedules: Schedule[];
   constructor(
     public auth: AuthService,
-    private scheduleService: ScheduleService,
-    private router: Router
-  ) {  }
+    
+  ) {}
 
   ngOnInit(): void {
-    this.getSchedules();
+    // this.auth.getAccessToken();
+
   }
 
-  add(): void {
-    this.scheduleService.createSchedule({userId: this.auth.userId} as Schedule)
-      .subscribe(schedule => {
-        this.router.navigate(['/edit', schedule.id]);
-      })
-  }
 
-  getSchedules() {
-    this.scheduleService.getSchedulesByUserId(this.auth.userId).subscribe(schedules => {
-      this.schedules = schedules
-    });
-  }
+
+
 
 }

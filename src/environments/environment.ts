@@ -5,8 +5,15 @@
 export const environment = {
   production: false,
   baseUrl: 'http://localhost:8080',
-  authClientId: 'pCb7m5IPa62ZpWC3gMkuDu54drA98BZs',
-  authRedirectUri: 'http://localhost:4200'  
+  // authClientId: 'pCb7m5IPa62ZpWC3gMkuDu54drA98BZs',
+  // authRedirectUri: 'http://localhost:4200'  
+  auth: {
+    clientID: 'pCb7m5IPa62ZpWC3gMkuDu54drA98BZs',
+    domain: 'kunzou.auth0.com', // e.g., https://you.auth0.com/
+    // audience: 'YOUR-AUTH0-API-IDENTIFIER', // e.g., http://localhost:3001
+    redirect: 'http://localhost:4200/callback',
+    scope: 'openid profile email'
+  }  
 };
 
 /*

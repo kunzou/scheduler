@@ -16,6 +16,8 @@ import { AdminComponent } from './admin/admin.component';
 import {AuthService} from 'src/app/service/auth.service';
 import { WelcomeComponent } from './welcome/welcome.component';
 import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
+import { CallbackComponent } from './callback/callback.component';
+import { ProfileComponent } from './profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { EditScheduleComponent } from './edit-schedule/edit-schedule.component';
     CalendarComponent,
     AdminComponent,
     WelcomeComponent,
-    EditScheduleComponent
+    EditScheduleComponent,
+    CallbackComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
