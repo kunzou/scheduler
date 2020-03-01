@@ -31,25 +31,24 @@
     </div>
   </div>
   <br />
-  <!-- fix this -->
-  <div *ngIf="events.length">
-    <div [ngSwitch]="view">
-      <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" 
-        [viewDate]="viewDate" 
-        [events]="events"
-        [refresh]="refresh" 
-        (dayClicked)="changeDay($event.day.date)">
-      </mwl-calendar-month-view>
-      <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" 
-        [viewDate]="viewDate" 
-        [events]="events" 
-        [refresh]="refresh"
-        [dayStartHour]="dayStartHour"
-        [dayEndHour]="dayEndHour"        
-        (eventClicked)="handleEvent('Clicked', $event.event)">
-      </mwl-calendar-day-view>
-    </div>
+
+  <div [ngSwitch]="view">
+    <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" 
+      [viewDate]="viewDate" 
+      [events]="events"
+      [refresh]="refresh" 
+      (dayClicked)="changeDay($event.day.date)">
+    </mwl-calendar-month-view>
+    <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" 
+      [viewDate]="viewDate" 
+      [events]="events" 
+      [refresh]="refresh"
+      [dayStartHour]="dayStartHour"
+      [dayEndHour]="dayEndHour"        
+      (eventClicked)="handleEvent('Clicked', $event.event)">
+    </mwl-calendar-day-view>
   </div>
+
   
   <ng-template #modalContent let-close="close">
     <div class="modal-header">

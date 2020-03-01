@@ -87,6 +87,7 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
 
     this.getEvents();
+    this.refresh.next();
 
     this._success.subscribe((message) => this.reservationResponse = message);
     this._showButton.subscribe((showButton) => this.showReserveButton = showButton);     
@@ -95,8 +96,9 @@ export class CalendarComponent implements OnInit {
   getEvents() {
     const id = this.route.snapshot.paramMap.get('id');
     this.eventService.getCalendarEventsByScheduleId(id).subscribe(events => {
-      this.events = events;
-      this.events.forEach(event => {
+      // this.events = events;
+      this.events =[];
+      events.forEach(event => {
         if(event.unitTaken == 0) {
           event.color = colors.blue;
         } else if(event.unitTaken < event.totalUnits) {
@@ -107,12 +109,14 @@ export class CalendarComponent implements OnInit {
         
         event.start = new Date(event.start);
         event.end = new Date(event.end);
+        this.events.push(event);
       })
 
       // this.dayStartHour = events[0].start.getHours()-1;
       this.dayStartHour = events.map(event=>event.start.getHours()).reduce(hour=>Math.max(hour));
 
       this.dayEndHour = events.slice(-1)[0].end.getHours();
+      this.refresh.next();
     });
   }
 
