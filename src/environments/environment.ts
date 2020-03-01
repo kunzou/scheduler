@@ -10,7 +10,7 @@ export const environment = {
   auth: {
     clientID: 'pCb7m5IPa62ZpWC3gMkuDu54drA98BZs',
     domain: 'kunzou.auth0.com', // e.g., https://you.auth0.com/
-    // audience: 'YOUR-AUTH0-API-IDENTIFIER', // e.g., http://localhost:3001
+    audience: 'https://kunzou.auth0.com/api/v2/', // e.g., http://localhost:3001
     redirect: 'http://localhost:4200/',
     scope: 'openid profile email'
   }

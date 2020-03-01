@@ -19,9 +19,9 @@
             </div>
         </div>
         <div class="form-group row">
-            <label for="eventInterval" class="col-sm-2 col-form-label">Event Interval</label>
+            <label for="eventInterval" class="col-sm-2 col-form-label">Event Interval in minutes</label>
             <div class="col-sm-3">
-              <input type="time" class="form-control" id="eventInterval" placeholder="hh-mm" [(ngModel)]="schedule.eventInterval" name="eventInterval">
+              <input type="number" class="form-control" id="eventInterval" placeholder="hh-mm" [(ngModel)]="schedule.eventInterval" name="eventInterval">
             </div>
         </div>          
         <div class="form-group row">
@@ -40,4 +40,8 @@
         <button type="submit" class="btn btn-primary" (click)="save()">Submit</button>
         <button type="submit" class="btn btn-secondary" (click)="back()">Close</button>
     </form>
+</div>
+
+<div>
+  <app-calendar></app-calendar>
 </div>

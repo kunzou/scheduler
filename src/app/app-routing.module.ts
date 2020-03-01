@@ -11,7 +11,7 @@ import { ProfileComponent } from './profile/profile.component';
 
 const routes: Routes = [
   { path: '', redirectTo: '/welcome', pathMatch: 'full' },
-  { path: 'calendar', component: CalendarComponent },  
+  { path: 'calendar/:id', component: CalendarComponent },  
   { path: 'admin', component: AdminComponent },  
   { path: 'welcome', component: WelcomeComponent },  
   { path: 'callback', component: CallbackComponent },  

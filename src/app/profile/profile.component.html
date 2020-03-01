@@ -1,7 +1,7 @@
-<div class="container">
+<div class="container" *ngIf="auth.isLoggedIn">
     <!-- <div *ngIf="auth.authenticated"> -->
-        <!-- <div> -->
-        <!-- <pre>{{ auth.userId }}</pre> -->
+    <!-- <div> -->
+    <!-- <pre>{{ auth.userId }}</pre> -->
     <div>
         <button type="button" class="btn btn-primary btn-lg" (click)="add()">New</button>
     </div>
@@ -9,27 +9,30 @@
 
     <!-- <div *ngIf="auth.userid != null"> -->
     <!-- <div> -->
-    <table class="table table-striped table-hover pt-3" *ngIf="schedules != null">
-        <thead>
-            <tr>
-                <th scope="col">Name</th>
-                <!-- <th scope="col">Title</th> -->
-                <!-- <th scope="col">Category</th> -->
-                <!-- <th scope="col">View Count</th> -->
-                <th scope="col">Edit</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let schedule of schedules; index as i">
-                <th>{{schedule.name}}</th>
-                <!-- <td>
+    <div>
+        <table class="table table-striped table-hover pt-3">
+            <thead>
+                <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">View</th>
+                    <!-- <th scope="col">Category</th> -->
+                    <!-- <th scope="col">View Count</th> -->
+                    <th scope="col">Config</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let schedule of schedules; index as i">
+                    <th>{{schedule.name}}</th>
+                    <td><a routerLink="/calendar/{{schedule.id}}"><i class="fa fa-calendar"></i></a></td>
+                    <!-- <td>
                         {{ blog.title.chinese }}
-                    </td>
+                    </td><i class="fas fa-calendar-alt"></i>
                     <td>{{ blog.category | translate}}</td>
                     <td>{{ blog.viewCount | number }}</td> -->
-                <td><a routerLink="/edit/{{schedule.id}}"><i class="fa fa-edit"></i></a></td>
-            </tr>
-        </tbody>
-    </table>
+                    <td><a routerLink="/edit/{{schedule.id}}"><i class="fa fa-edit"></i></a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
     <!-- </div> -->
 </div>

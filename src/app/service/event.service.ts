@@ -22,6 +22,11 @@ export class EventService {
     return this.http.get<ScheduleEvent[]>(this.baseUrl);
   }
 
+  getCalendarEventsByScheduleId(scheduleId: string): Observable<ScheduleEvent[]> {
+    const url = `${this.baseUrl}/${scheduleId}`;
+    return this.http.get<ScheduleEvent[]>(url);
+  }  
+
   addReservation(calendarEvent: ScheduleEvent): Observable<any> {
     return this.http.post<ScheduleEvent>(this.baseUrl, calendarEvent, {observe: 'response', });
   }

@@ -12,7 +12,6 @@ import { Router } from '@angular/router';
 export class WelcomeComponent implements OnInit {
   constructor(
     public auth: AuthService,
-    
   ) {}
 
   ngOnInit(): void {

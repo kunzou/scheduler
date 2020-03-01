@@ -12,25 +12,26 @@ import { Router } from '@angular/router';
 export class ProfileComponent implements OnInit {
   schedules: Schedule[];
   constructor(
-    private authService: AuthService,
+    public auth: AuthService,
     private scheduleService: ScheduleService,  
     private router: Router
   ) { }
 
   ngOnInit(): void {
     this.getSchedules();
+    console.log(this.auth.userProfile)
   }
 
   getSchedules() {
     // if(this.auth.authenticated) {
-      this.scheduleService.getSchedulesByUserId(this.authService.userid).subscribe(schedules => {
+      this.scheduleService.getSchedulesByUserId(sessionStorage.getItem("userid")).subscribe(schedules => {
         this.schedules = schedules
       });
     // }
   }
   
   add(): void {
-    this.scheduleService.createSchedule({userId: this.authService.userid} as Schedule)
+    this.scheduleService.createSchedule({userId: this.auth.userid} as Schedule)
       .subscribe(schedule => {
         this.router.navigate(['/edit', schedule.id]);
       })

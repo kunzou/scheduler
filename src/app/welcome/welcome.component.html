@@ -3,9 +3,7 @@
     <!-- <strong>{{auth.accessToken}}</strong> -->
     <!-- <strong>{{auth.userId}}</strong> -->
 
-    <div *ngIf="auth.authenticated">
-        <p>{{ auth.accessToken }}</p>
-        <p>{{ auth.userid }}</p>
+    <div *ngIf="auth.isLoggedIn">
         <p>{{ auth.userProfile | json }}</p>
     </div>
 
@@ -13,17 +11,17 @@
         {{auth.userId}}
     </div> -->
 
-    <div *ngIf="!auth.authenticated">
+    <div *ngIf="!auth.isLoggedIn">
         <!-- <div> -->
         <p>Please login first to view or create new schedules</p>
         <button type="button" class="btn btn-primary btn-lg" (click)="auth.login()">Login in</button>
     </div>
 
-    <div *ngIf="auth.authenticated">
+    <div *ngIf="auth.isLoggedIn">
         <button type="button" class="btn btn-primary btn-lg" (click)="auth.logout()">Logout</button>
     </div>
 
-    <div *ngIf="auth.authenticated">
+    <div *ngIf="auth.isLoggedIn">
         <a [routerLink]="['/profile']" routerLinkActive="router-link-active" >Go to profile</a>
     </div>    
 

@@ -24,20 +24,30 @@
         <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
           Month
         </div>
-        <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
-          Week
+        <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+          Day
         </div>
       </div>
     </div>
   </div>
   <br />
-  
-  <div *ngIf="events.length"> <!--fix this -->
+  <!-- fix this -->
+  <div *ngIf="events.length">
     <div [ngSwitch]="view">
-      <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (dayClicked)="changeDay($event.day.date)">
+      <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" 
+        [viewDate]="viewDate" 
+        [events]="events"
+        [refresh]="refresh" 
+        (dayClicked)="changeDay($event.day.date)">
       </mwl-calendar-month-view>
-      <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event)">
-      </mwl-calendar-week-view>
+      <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" 
+        [viewDate]="viewDate" 
+        [events]="events" 
+        [refresh]="refresh"
+        [dayStartHour]="dayStartHour"
+        [dayEndHour]="dayEndHour"        
+        (eventClicked)="handleEvent('Clicked', $event.event)">
+      </mwl-calendar-day-view>
     </div>
   </div>
   

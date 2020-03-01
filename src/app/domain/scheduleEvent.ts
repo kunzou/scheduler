@@ -16,4 +16,5 @@ export class ScheduleEvent implements CalendarEvent {
     taken: boolean;
     totalUnits: number;
     unitTaken: number;
+    scheduleId: string;
 }

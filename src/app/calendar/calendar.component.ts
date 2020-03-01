@@ -15,11 +15,12 @@ import {
   endOfMonth,
   isSameDay,
   isSameMonth,
-  addHours
+  addHours,
+  max
 } from 'date-fns';
 import { Subject } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
-import { NgbModal, NgbAlertConfig } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {
   CalendarEvent,
   CalendarEventAction,
@@ -29,6 +30,7 @@ import {
 
 import { EventService } from 'src/app/service/event.service';
 import { ScheduleEvent } from 'src/app/domain/scheduleEvent';
+import { ActivatedRoute } from '@angular/router';
 
 const colors: any = {
   red: {
@@ -63,6 +65,8 @@ export class CalendarComponent implements OnInit {
   reservationResponse: string;
   responseType: any;
   showReserveButton: boolean;
+  dayStartHour: number;
+  dayEndHour: number;
 
   modalData: {
     action: string;
@@ -72,27 +76,25 @@ export class CalendarComponent implements OnInit {
   refresh: Subject<any> = new Subject();
 
   events: ScheduleEvent[];
+  scheduleId: string;
 
   constructor(
     private modal: NgbModal,
     private eventService: EventService,
-    alertConfig: NgbAlertConfig
-  ) {
-    alertConfig.dismissible = false;
-  }
+    private route: ActivatedRoute,
+  ) { }
 
   ngOnInit() {
-    this.getDummy();
+
+    this.getEvents();
 
     this._success.subscribe((message) => this.reservationResponse = message);
-    this._showButton.subscribe((showButton) => this.showReserveButton = showButton);
-    // this._success.pipe(
-    //   debounceTime(5000)
-    // ).subscribe(() => this.reservationResponse = null);       
+    this._showButton.subscribe((showButton) => this.showReserveButton = showButton);     
   }
 
-  getDummy(): void {
-    this.eventService.getDummyCalendarEvents().subscribe(events => {
+  getEvents() {
+    const id = this.route.snapshot.paramMap.get('id');
+    this.eventService.getCalendarEventsByScheduleId(id).subscribe(events => {
       this.events = events;
       this.events.forEach(event => {
         if(event.unitTaken == 0) {
@@ -106,12 +108,17 @@ export class CalendarComponent implements OnInit {
         event.start = new Date(event.start);
         event.end = new Date(event.end);
       })
+
+      // this.dayStartHour = events[0].start.getHours()-1;
+      this.dayStartHour = events.map(event=>event.start.getHours()).reduce(hour=>Math.max(hour));
+
+      this.dayEndHour = events.slice(-1)[0].end.getHours();
     });
-  }    
+  }
 
   changeDay(date: Date) {
-    // this.viewDate = date;
-    this.view = CalendarView.Week;
+    this.viewDate = date;
+    this.view = CalendarView.Day;
   }  
 
   handleEvent(action: string, event: ScheduleEvent): void {
@@ -126,18 +133,19 @@ export class CalendarComponent implements OnInit {
   }
 
   makeReservation(event: ScheduleEvent) {
+    event.scheduleId = this.route.snapshot.paramMap.get('id');
     this.eventService.addReservation(event).subscribe(
       (response) => {
         this.responseType = "success";
         this.reservationResponse = "DONE";
         this.showReserveButton = false;
-        this.getDummy();
+        this.getEvents();
         this.showMessage();
       },
       (error) => {
         this.responseType = "danger";
         this.reservationResponse = "OOPS";
-        this.getDummy();
+        this.getEvents();
         this.showMessage();
       }
     );    

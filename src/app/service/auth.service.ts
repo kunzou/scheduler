@@ -13,9 +13,9 @@ export class AuthService {
   auth0 = new auth0.WebAuth({
     clientID: environment.auth.clientID,
     domain: environment.auth.domain,
-    responseType: 'token',
+    responseType: 'id_token token',
     redirectUri: environment.auth.redirect,
-    // audience: environment.auth.audience,
+    audience: environment.auth.audience,
     scope: environment.auth.scope
   });
   // Store authentication data
@@ -71,12 +71,15 @@ export class AuthService {
     this.userProfile = profile;
     this.authenticated = true;
     this.userid = profile.sub;
+    sessionStorage.setItem("userid", profile.sub); //todo temporary solution for losing access token at profile page refresh ..
+    sessionStorage.setItem("email", profile.email);
   }
 
   logout() {
     // Log out of Auth0 session
     // Ensure that returnTo URL is specified in Auth0
     // Application settings for Allowed Logout URLs
+    sessionStorage.clear();
     this.auth0.logout({
       returnTo: 'http://localhost:4200',
       clientID: environment.auth.clientID
