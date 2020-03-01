@@ -8,7 +8,7 @@ import { AuthService } from 'src/app/service/auth.service';
 })
 export class AppComponent {
   title = 'scheduler';
-  constructor(public auth: AuthService) {
+  constructor() {
     // auth.getAccessToken();
   }  
 }

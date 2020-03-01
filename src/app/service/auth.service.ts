@@ -20,10 +20,11 @@ export class AuthService {
   });
   // Store authentication data
   expiresAt: number;
-  userProfile: any;
   accessToken: string;
   authenticated: boolean;
-  userid: string;
+
+  private useridSubject$ = new BehaviorSubject<any>(null);
+  userid$ = this.useridSubject$.asObservable();  
 
   constructor(private router: Router) {
     this.getAccessToken();
@@ -43,7 +44,7 @@ export class AuthService {
       } else if (err) {
         console.error(`Error: ${err.error}`);
       }
-      this.router.navigate(['/profile']);
+      this.router.navigate(['/']);
     });
   }
 
@@ -68,11 +69,8 @@ export class AuthService {
     // Save authentication data and update login status subject
     this.expiresAt = authResult.expiresIn * 1000 + Date.now();
     this.accessToken = authResult.accessToken;
-    this.userProfile = profile;
     this.authenticated = true;
-    this.userid = profile.sub;
-    sessionStorage.setItem("userid", profile.sub); //todo temporary solution for losing access token at profile page refresh ..
-    sessionStorage.setItem("email", profile.email);
+    this.useridSubject$.next(profile.sub);
   }
 
   logout() {

@@ -62,6 +62,7 @@ export class CalendarComponent implements OnInit {
   viewDate: Date = new Date();
   private _success = new Subject<string>();
   private _showButton = new Subject<boolean>();
+  refresh: Subject<any> = new Subject();
   reservationResponse: string;
   responseType: any;
   showReserveButton: boolean;
@@ -72,8 +73,6 @@ export class CalendarComponent implements OnInit {
     action: string;
     event: ScheduleEvent;
   };
-
-  refresh: Subject<any> = new Subject();
 
   events: ScheduleEvent[];
   scheduleId: string;

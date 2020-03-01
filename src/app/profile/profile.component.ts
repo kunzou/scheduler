@@ -3,6 +3,8 @@ import { AuthService } from '../service/auth.service';
 import { ScheduleService } from '../service/schedule.service';
 import { Schedule } from '../domain/schedule';
 import { Router } from '@angular/router';
+import { share } from 'rxjs/operators';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -11,6 +13,8 @@ import { Router } from '@angular/router';
 })
 export class ProfileComponent implements OnInit {
   schedules: Schedule[];
+  userid: string;
+
   constructor(
     public auth: AuthService,
     private scheduleService: ScheduleService,  
@@ -18,20 +22,16 @@ export class ProfileComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getSchedules();
-    console.log(this.auth.userProfile)
-  }
-
-  getSchedules() {
-    // if(this.auth.authenticated) {
-      this.scheduleService.getSchedulesByUserId(sessionStorage.getItem("userid")).subscribe(schedules => {
+    this.auth.userid$.subscribe(userid=>{
+      this.userid = userid;
+      this.scheduleService.getSchedulesByUserId(this.userid).subscribe(schedules => {
         this.schedules = schedules
-      });
-    // }
+      })      
+    })
   }
   
   add(): void {
-    this.scheduleService.createSchedule({userId: this.auth.userid} as Schedule)
+    this.scheduleService.createSchedule({userId: this.userid} as Schedule)
       .subscribe(schedule => {
         this.router.navigate(['/edit', schedule.id]);
       })
