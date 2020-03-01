@@ -31,6 +31,7 @@ import {
 import { EventService } from 'src/app/service/event.service';
 import { ScheduleEvent } from 'src/app/domain/scheduleEvent';
 import { ActivatedRoute } from '@angular/router';
+import { ScheduleEventsResponse } from '../domain/scheduleEventsResponse';
 
 const colors: any = {
   red: {
@@ -94,10 +95,11 @@ export class CalendarComponent implements OnInit {
 
   getEvents() {
     const id = this.route.snapshot.paramMap.get('id');
-    this.eventService.getCalendarEventsByScheduleId(id).subscribe(events => {
-      // this.events = events;
+    this.eventService.getCalendarEventsByScheduleId(id).subscribe((res:ScheduleEventsResponse) => {
+      this.dayStartHour = parseInt(res.dayStartHour.toString().split(":")[0], 10);
+      this.dayEndHour = parseInt(res.dayEndHour.toString().split(":")[0], 10);
       this.events =[];
-      events.forEach(event => {
+      res.scheduleEvents.forEach(event => {
         if(event.unitTaken == 0) {
           event.color = colors.blue;
         } else if(event.unitTaken < event.totalUnits) {
@@ -112,9 +114,9 @@ export class CalendarComponent implements OnInit {
       })
 
       // this.dayStartHour = events[0].start.getHours()-1;
-      this.dayStartHour = events.map(event=>event.start.getHours()).reduce(hour=>Math.max(hour));
+      // this.dayStartHour = events.map(event=>event.start.getHours()).reduce(hour=>Math.max(hour));
 
-      this.dayEndHour = events.slice(-1)[0].end.getHours();
+      // this.dayEndHour = events.slice(-1)[0].end.getHours();
       this.refresh.next();
     });
   }
