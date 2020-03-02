@@ -100,10 +100,8 @@ export class CalendarComponent implements OnInit {
       this.dayEndHour = parseInt(res.dayEndHour.toString().split(":")[0], 10);
       this.events =[];
       res.scheduleEvents.forEach(event => {
-        if(event.unitTaken == 0) {
+        if(event.available > 0) {
           event.color = colors.blue;
-        } else if(event.unitTaken < event.totalUnits) {
-          event.color = colors.yellow;
         } else {
           event.color = colors.red;
         }
@@ -113,10 +111,6 @@ export class CalendarComponent implements OnInit {
         this.events.push(event);
       })
 
-      // this.dayStartHour = events[0].start.getHours()-1;
-      // this.dayStartHour = events.map(event=>event.start.getHours()).reduce(hour=>Math.max(hour));
-
-      // this.dayEndHour = events.slice(-1)[0].end.getHours();
       this.refresh.next();
     });
   }
@@ -128,7 +122,7 @@ export class CalendarComponent implements OnInit {
 
   handleEvent(action: string, event: ScheduleEvent): void {
     this.reservationResponse = null;
-    this.showReserveButton = event.unitTaken < event.totalUnits;
+    this.showReserveButton = event.available > 0;
     this.modalData = { event, action };event.start.getTime
     this.modal.open(this.modalContent, { size: 'lg' });
   }

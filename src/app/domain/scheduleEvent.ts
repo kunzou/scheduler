@@ -14,7 +14,6 @@ export class ScheduleEvent implements CalendarEvent {
     meta?: any;
 
     taken: boolean;
-    totalUnits: number;
-    unitTaken: number;
+    available: number;
     scheduleId: string;
 }

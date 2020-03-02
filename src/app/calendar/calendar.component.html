@@ -69,6 +69,11 @@
         Event:
         <pre>{{ modalData?.event | json }}</pre>
       </div>
+      <div>
+        <p>Start Time: {{modalData?.event.start | date:'medium'}}</p>
+        <p>End Time: {{modalData?.event.end | date:'medium'}}</p>
+        <p>Spot available: {{modalData?.event.available}}</p>
+      </div>
     </div>
     <div class="modal-footer">
       <button *ngIf="showReserveButton" type="button" class="btn btn-outline-secondary" (click)="makeReservation(modalData?.event)">
