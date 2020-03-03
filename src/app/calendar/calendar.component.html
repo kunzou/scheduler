@@ -52,35 +52,51 @@
   
   <ng-template #modalContent let-close="close">
     <div class="modal-header">
-      <h5 class="modal-title">Event action occurred</h5>
-      <button type="button" class="close" (click)="close()">
-        <span aria-hidden="true">&times;</span>
-      </button>    
+      <h5 class="modal-title">From {{modalData?.event.start | date:'HH:mm'}} to {{modalData?.event.end | date:'HH:mm, E, MMM dd, yyyy'}}</h5>
     </div>
     <div class="modal-body">
       <div *ngIf="reservationResponse">
         <ngb-alert [type]="responseType" [dismissible]="false">{{reservationResponse}}</ngb-alert>
-      </div>          
+      </div>        
       <div>
-        Action:
-        <pre>{{ modalData?.action }}</pre>
-      </div>
-      <div>
-        Event:
-        <pre>{{ modalData?.event | json }}</pre>
-      </div>
-      <div>
-        <p>Start Time: {{modalData?.event.start | date:'medium'}}</p>
-        <p>End Time: {{modalData?.event.end | date:'medium'}}</p>
-        <p>Spot available: {{modalData?.event.available}}</p>
-      </div>
+        <form (ngSubmit)="makeReservation(modalData?.event)" #guestForm="ngForm">
+          <div class="form-row">
+            <div class="col-md-4 mb-3">
+              <label for="guestFirstName">First name</label>
+              <input type="text" class="form-control" id="guestFirstName" [(ngModel)]="modalData?.event.guestFirstName" name="guestFirstName" required>
+            </div>
+            <div class="col-md-4 mb-3">
+              <label for="guestLastName">Last name</label>
+              <input type="text" class="form-control" id="guestLastName" [(ngModel)]="modalData?.event.guestLastName" name="guestLastName" required>
+            </div>         
+          </div>
+          <div class="form-row">
+            <div class="col-md-6 mb-3">
+              <label for="guestEmail">Email Address</label>
+              <input type="email" class="form-control" id="guestEmail" [(ngModel)]="modalData?.event.guestEmail" name="guestEmail" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="guestComment">Your Comment</label>
+            <textarea class="form-control" id="guestComment" [(ngModel)]="modalData?.event.guestComment" name="guestComment" rows="3"></textarea>
+          </div>       
+          <!-- <div class="form-group">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="guestConsent" [(ngModel)]="modalData?.event.guestConsent" name="guestConsent" required>
+              <label class="form-check-label" for="guestConsent">
+                Agree to terms and conditions
+              </label>
+            </div>
+          </div> -->
+        </form>        
+      </div>  
     </div>
     <div class="modal-footer">
-      <button *ngIf="showReserveButton" type="button" class="btn btn-outline-secondary" (click)="makeReservation(modalData?.event)">
+      <button *ngIf="showReserveButton" type="submit" class="btn btn-primary" [disabled]="!guestForm.form.valid" (click)="makeReservation(modalData?.event)">
         Reserve
       </button>      
-      <button #closeModal type="button" data-dismiss="modal" class="btn btn-outline-secondary" (click)="close()">
-        OK
+      <button #closeModal data-dismiss="modal" class="btn btn-outline-secondary" (click)="close()">
+        Close
       </button>
     </div>
   </ng-template>

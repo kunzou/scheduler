@@ -127,10 +127,12 @@ export class CalendarComponent implements OnInit {
   }  
 
   handleEvent(action: string, event: ScheduleEvent): void {
-    this.reservationResponse = null;
-    this.showReserveButton = event.available > 0;
-    this.modalData = { event, action };event.start.getTime
-    this.modal.open(this.modalContent, { size: 'lg' });
+    if(event.available > 0) {
+      this.reservationResponse = null;
+      this.showReserveButton = event.available > 0;
+      this.modalData = { event, action };
+      this.modal.open(this.modalContent, { size: 'lg' });
+    }
   }
 
   setView(view: CalendarView) {
