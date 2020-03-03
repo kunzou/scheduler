@@ -56,7 +56,7 @@ const colors: any = {
 })
 export class CalendarComponent implements OnInit {
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
-  @Input() public alerts: Array<string> = [];
+  @Input() reload: Subject<boolean> = new Subject<boolean>();
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
@@ -90,7 +90,12 @@ export class CalendarComponent implements OnInit {
     this.refresh.next();
 
     this._success.subscribe((message) => this.reservationResponse = message);
-    this._showButton.subscribe((showButton) => this.showReserveButton = showButton);     
+    this._showButton.subscribe((showButton) => this.showReserveButton = showButton);
+    this.reload.subscribe(reload => {
+      if(reload) {
+        this.getEvents();
+      }
+    })
   }
 
   getEvents() {
@@ -108,6 +113,7 @@ export class CalendarComponent implements OnInit {
         
         event.start = new Date(event.start);
         event.end = new Date(event.end);
+        event.title = 'Available: ' + event.available;
         this.events.push(event);
       })
 

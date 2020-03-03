@@ -14,6 +14,7 @@ import { ScheduleService } from '../service/schedule.service';
 export class EditScheduleComponent implements OnInit {
   schedule: Schedule;
   private _success = new Subject<string>();
+  reloadCalendar: Subject<boolean> = new Subject<boolean>();
   responseType: string;
   submitMessage: string;
   constructor(
@@ -41,6 +42,7 @@ export class EditScheduleComponent implements OnInit {
         this.responseType = "success";
         this.submitMessage = "Saved";
         this.showMessage();
+        this.reloadCalendar.next(true);
       },
       (error) => {
         this.responseType = "danger";

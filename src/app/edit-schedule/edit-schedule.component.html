@@ -37,11 +37,11 @@
             </div>
         </div>                      
 
-        <button type="submit" class="btn btn-primary" (click)="save()">Submit</button>
+        <button type="submit" class="btn btn-primary" (click)="save()">Save</button>
         <button type="submit" class="btn btn-secondary" (click)="back()">Close</button>
     </form>
 </div>
 
 <div>
-  <app-calendar></app-calendar>
+  <app-calendar [reload]="reloadCalendar.asObservable()"></app-calendar>
 </div>
