@@ -24,7 +24,7 @@ export class ProfileComponent implements OnInit {
   ngOnInit(): void {
     this.auth.userid$.subscribe(userid=>{
       this.userid = userid;
-      this.scheduleService.getSchedulesByUserId(this.userid).subscribe(schedules => {
+      this.scheduleService.getSchedulesByUserId(userid).subscribe(schedules => {
         this.schedules = schedules
       })      
     })

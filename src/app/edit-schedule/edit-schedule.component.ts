@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { Location } from '@angular/common';
 
 import { ScheduleService } from '../service/schedule.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-edit-schedule',
@@ -17,14 +18,19 @@ export class EditScheduleComponent implements OnInit {
   reloadCalendar: Subject<boolean> = new Subject<boolean>();
   responseType: string;
   submitMessage: string;
+  email:string
   constructor(
     private route: ActivatedRoute,
     private scheduleService: ScheduleService,
     private location: Location,
+    private auth: AuthService
   ) { }
 
   ngOnInit(): void {
     this.getSchedule();
+    this.auth.userEmail$.subscribe(email => {
+      this.email = email
+    })
     this._success.subscribe((message) => this.submitMessage = message);
   }
 
@@ -37,6 +43,7 @@ export class EditScheduleComponent implements OnInit {
   }
 
   save() {
+    this.schedule.userEmail = this.email;
     this.scheduleService.save(this.schedule).subscribe(
       (response) => {
         this.responseType = "success";

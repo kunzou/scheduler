@@ -7,4 +7,5 @@ export class Schedule {
     closeHour: Date
     maxAllowedDaysFromNow: number
     availability: number    
+    userEmail: string
 }

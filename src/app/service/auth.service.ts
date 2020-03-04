@@ -24,7 +24,9 @@ export class AuthService {
   authenticated: boolean;
 
   private useridSubject$ = new BehaviorSubject<any>(null);
+  private userEmailSubject$ = new BehaviorSubject<any>(null);
   userid$ = this.useridSubject$.asObservable();  
+  userEmail$ = this.userEmailSubject$.asObservable();    
 
   constructor(private router: Router) {
     this.getAccessToken();
@@ -71,6 +73,7 @@ export class AuthService {
     this.accessToken = authResult.accessToken;
     this.authenticated = true;
     this.useridSubject$.next(profile.sub);
+    this.userEmailSubject$.next(profile.email);
   }
 
   logout() {
