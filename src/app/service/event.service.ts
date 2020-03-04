@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { CalendarEvent } from 'angular-calendar';
 import { ScheduleEvent } from 'src/app/domain/scheduleEvent';
 import { ScheduleEventsResponse } from '../domain/scheduleEventsResponse';
+import { Appointment } from '../domain/appointment';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class EventService {
     return this.http.get<ScheduleEventsResponse>(url);
   }
 
-  addReservation(calendarEvent: ScheduleEvent): Observable<any> {
-    return this.http.post<ScheduleEvent>(this.baseUrl, calendarEvent, {observe: 'response', });
+  addReservation(calendarEvent: Appointment): Observable<any> {
+    return this.http.post<Appointment>(this.baseUrl, calendarEvent, {observe: 'response', });
   }
 }

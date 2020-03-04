@@ -63,22 +63,22 @@
           <div class="form-row">
             <div class="col-md-4 mb-3">
               <label for="guestFirstName">First name</label>
-              <input type="text" class="form-control" id="guestFirstName" [(ngModel)]="modalData?.event.guestFirstName" name="guestFirstName" required>
+              <input type="text" class="form-control" id="guestFirstName" [(ngModel)]="guestFirstName" name="guestFirstName" required>
             </div>
             <div class="col-md-4 mb-3">
               <label for="guestLastName">Last name</label>
-              <input type="text" class="form-control" id="guestLastName" [(ngModel)]="modalData?.event.guestLastName" name="guestLastName" required>
+              <input type="text" class="form-control" id="guestLastName" [(ngModel)]="guestLastName" name="guestLastName" required>
             </div>         
           </div>
           <div class="form-row">
             <div class="col-md-6 mb-3">
               <label for="guestEmail">Email Address</label>
-              <input type="email" class="form-control" id="guestEmail" [(ngModel)]="modalData?.event.guestEmail" name="guestEmail" required>
+              <input type="email" class="form-control" id="guestEmail" [(ngModel)]="guestEmail" name="guestEmail" required>
             </div>
           </div>
           <div class="form-group">
             <label for="guestComment">Your Comment</label>
-            <textarea class="form-control" id="guestComment" [(ngModel)]="modalData?.event.guestComment" name="guestComment" rows="3"></textarea>
+            <textarea class="form-control" id="guestComment" [(ngModel)]="guestComment" name="guestComment" rows="3"></textarea>
           </div>       
           <!-- <div class="form-group">
             <div class="form-check">

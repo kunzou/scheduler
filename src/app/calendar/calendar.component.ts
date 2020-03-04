@@ -32,6 +32,7 @@ import { EventService } from 'src/app/service/event.service';
 import { ScheduleEvent } from 'src/app/domain/scheduleEvent';
 import { ActivatedRoute } from '@angular/router';
 import { ScheduleEventsResponse } from '../domain/scheduleEventsResponse';
+import { Appointment } from '../domain/appointment';
 
 const colors: any = {
   red: {
@@ -76,7 +77,12 @@ export class CalendarComponent implements OnInit {
   };
 
   events: ScheduleEvent[];
-  scheduleId: string;
+
+  guestFirstName: string;
+  guestLastName: string;
+  guestEmail: string;
+  guestMessage: string;
+  // guestConsent: boolean;  
 
   constructor(
     private modal: NgbModal,
@@ -140,8 +146,15 @@ export class CalendarComponent implements OnInit {
   }
 
   makeReservation(event: ScheduleEvent) {
-    event.scheduleId = this.route.snapshot.paramMap.get('id');
-    this.eventService.addReservation(event).subscribe(
+    this.eventService.addReservation({
+      scheduleId: this.route.snapshot.paramMap.get('id'),
+      start: event.start,
+      end: event.end,
+      guestFirstName: this.guestFirstName,
+      guestLastName: this.guestLastName,
+      guestEmail: this.guestEmail,
+      guestMessage: this.guestMessage  
+    } as Appointment).subscribe(
       (response) => {
         this.responseType = "success";
         this.reservationResponse = "DONE";

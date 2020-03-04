@@ -16,10 +16,4 @@ export class ScheduleEvent implements CalendarEvent {
     taken: boolean;
     available: number;
     scheduleId: string;
-
-    guestFirstName: string;
-    guestLastName: string;
-    guestEmail: string;
-    guestComment: string;
-    guestConsent: boolean;
 }
