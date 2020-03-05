@@ -63,6 +63,10 @@ export class EditScheduleComponent implements OnInit {
     this._success.next("Saved!");
   }
 
+  delete() {
+    this.scheduleService.delete(this.route.snapshot.paramMap.get('id')).subscribe(()=>this.location.back());
+  }
+
   back() {
     this.location.back();
   }

@@ -34,4 +34,9 @@ export class ScheduleService {
     return this.http.post<Schedule>(this.baseUrl, schedule, {observe: 'response'});
   }  
 
+  delete(id: string): Observable<any> {
+    const url = `${this.baseUrl}/${id}`;
+    return this.http.delete<Schedule>(url, this.httpOptions);
+  }
+
 }

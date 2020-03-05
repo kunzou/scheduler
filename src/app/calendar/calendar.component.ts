@@ -91,7 +91,6 @@ export class CalendarComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
     this.getEvents();
     this.refresh.next();
 
@@ -107,23 +106,24 @@ export class CalendarComponent implements OnInit {
   getEvents() {
     const id = this.route.snapshot.paramMap.get('id');
     this.eventService.getCalendarEventsByScheduleId(id).subscribe((res:ScheduleEventsResponse) => {
-      this.dayStartHour = parseInt(res.dayStartHour.toString().split(":")[0], 10);
-      this.dayEndHour = parseInt(res.dayEndHour.toString().split(":")[0], 10);
-      this.events =[];
-      res.scheduleEvents.forEach(event => {
-        if(event.available > 0) {
-          event.color = colors.blue;
-        } else {
-          event.color = colors.red;
-        }
-        
-        event.start = new Date(event.start);
-        event.end = new Date(event.end);
-        event.title = 'Available: ' + event.available;
-        this.events.push(event);
-      })
-
-      this.refresh.next();
+      if(res.scheduleEvents != null) {
+        this.dayStartHour = parseInt(res.dayStartHour.toString().split(":")[0], 10);
+        this.dayEndHour = parseInt(res.dayEndHour.toString().split(":")[0], 10);
+        this.events =[];
+        res.scheduleEvents.forEach(event => {
+          if(event.available > 0) {
+            event.color = colors.blue;
+          } else {
+            event.color = colors.red;
+          }
+          
+          event.start = new Date(event.start);
+          event.end = new Date(event.end);
+          event.title = 'Available: ' + event.available;
+          this.events.push(event);
+        })
+        this.refresh.next();
+      }
     });
   }
 

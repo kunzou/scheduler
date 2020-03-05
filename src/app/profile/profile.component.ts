@@ -31,8 +31,7 @@ export class ProfileComponent implements OnInit {
   }
   
   add(): void {
-    this.scheduleService.createSchedule({userId: this.userid} as Schedule)
-      .subscribe(schedule => {
+    this.scheduleService.createSchedule({userId: this.userid} as Schedule).subscribe(schedule => {
         this.router.navigate(['/edit', schedule.id]);
       })
   }  
