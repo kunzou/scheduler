@@ -8,4 +8,5 @@ export class Schedule {
     maxAllowedDaysFromNow: number
     availability: number    
     userEmail: string
+    termsAndConditions: boolean
 }

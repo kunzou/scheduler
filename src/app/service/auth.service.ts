@@ -2,8 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import * as auth0 from 'auth0-js';
 import { Router } from '@angular/router';
-import { from, Observable, throwError, BehaviorSubject, of, combineLatest } from 'rxjs';
-import { shareReplay, catchError, concatMap, tap } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 (window as any).global = window;
 
